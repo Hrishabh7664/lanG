@@ -1,0 +1,49 @@
+// ===== File: Assets/Plugins/Android/mainTemplate.gradle =====
+apply plugin: 'com.android.application'
+**BUILD_SCRIPT_DEPS**
+
+extension {
+    buildToolsVersion = "**BUILDTOOLS**"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+**DEPS**
+}
+
+android {
+    ndkPath "**NDKPATH**"
+
+    compileSdkVersion **APIVERSION**
+    buildToolsVersion '**BUILDTOOLS**'
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion **TARGETSDKVERSION**
+        applicationId '**APPLICATIONID**'
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+        versionCode **VERSIONCODE**
+        versionName '**VERSIONNAME**'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    aaptOptions {
+        noCompress = ['.unity3d', '.ress', '.resource', '.obb', '.bundle', '.assetbundle'] + unityStreamingAssets.tokenize(', ')
+        ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!p4ignore.txt:!*~"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    packagingOptions {
+        doNotStrip "*/arm64-v8a/*.so"
+    }
+}
+**SOURCE_BUILD_SETUP**
