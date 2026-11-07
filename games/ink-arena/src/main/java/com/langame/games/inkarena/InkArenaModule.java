@@ -92,11 +92,9 @@ public final class InkArenaModule implements GameModule, DeltaSnapshotModule {
             throw new IllegalArgumentException("Invalid fixed timestep");
         }
         tick++;
-        if ((tick & 1) == 0) {
-            // Stable insertion order makes simultaneous cell conflicts deterministic.
-            for (PlayerState player : players.values()) {
-                if (player.alive) move(player);
-            }
+        // Stable insertion order makes simultaneous cell conflicts deterministic.
+        for (PlayerState player : players.values()) {
+            if (player.alive) move(player);
         }
         int alive = 0;
         for (PlayerState player : players.values()) if (player.alive) alive++;
