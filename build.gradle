@@ -1,0 +1,13 @@
+plugins {
+    id 'com.android.application' version '8.4.2' apply false
+}
+
+subprojects {
+    plugins.withId('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
+    }
+}
